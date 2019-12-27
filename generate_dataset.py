@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from multiobject import generate_multiobject_dataset
-from multiobject.datasets import generate_dsprites
+from multiobject.sprites import generate_dsprites
 from utils import get_date_str
 
 supported_sprites = ['dsprites']

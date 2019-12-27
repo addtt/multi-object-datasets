@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from torch.utils.data import DataLoader
+from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 
 
@@ -29,6 +29,52 @@ class MultiObjectDataLoader(DataLoader):
             for k in keys}
 
         return imgs, labels
+
+
+class MultiObjectDataset(Dataset):
+
+    def __init__(self, data_path, train, split=0.9):
+        super().__init__()
+
+        # Load data
+        data = np.load(data_path, allow_pickle=True)
+
+        # Rescale images and permute dimensions
+        x = np.array(data['x'], dtype=np.float32) / 255
+        x = np.transpose(x, [0, 3, 1, 2])  # batch, channels, h, w
+
+        # Get labels
+        labels = data['labels'].item()
+
+        # Split train and test
+        split = int(split * len(x))
+        if train:
+            indices = range(split)
+        else:
+            indices = range(split, len(x))
+
+        # From numpy/ndarray to torch tensors (labels are lists of tensors as
+        # they might have different sizes)
+        self.x = torch.from_numpy(x[indices])
+        self.labels = self._labels_to_tensorlist(labels, indices)
+
+    @staticmethod
+    def _labels_to_tensorlist(labels, indices):
+        out = {k: [] for k in labels.keys()}
+        for i in indices:
+            for k in labels.keys():
+                t = labels[k][i]
+                t = torch.as_tensor(t)
+                out[k].append(t)
+        return out
+
+    def __getitem__(self, index):
+        x = self.x[index]
+        labels = {k: self.labels[k][index] for k in self.labels.keys()}
+        return x, labels
+
+    def __len__(self):
+        return self.x.size(0)
 
 
 def generate_multiobject_dataset(n, shape, sprites, sprites_attr, count_distrib,

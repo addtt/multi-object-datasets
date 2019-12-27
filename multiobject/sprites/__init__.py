@@ -1,0 +1,1 @@
+from .dsprites_binary_color import generate_dsprites

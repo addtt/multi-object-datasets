@@ -6,8 +6,7 @@ from torch import nn
 from torch.optim import Adam
 from torchvision.utils import save_image
 
-from multiobject import MultiObjectDataLoader
-from multiobject.datasets import MultiDSpritesBinaryColor
+from multiobject import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
 batch_size = 64
@@ -56,8 +55,8 @@ def main():
 
     # Datasets and dataloaders
     print("loading dataset...")
-    train_set = MultiDSpritesBinaryColor(path, train=True)
-    test_set = MultiDSpritesBinaryColor(path, train=False)
+    train_set = MultiObjectDataset(path, train=True)
+    test_set = MultiObjectDataset(path, train=False)
     train_loader = MultiObjectDataLoader(
         train_set, batch_size=batch_size, shuffle=True, drop_last=True)
     test_loader = MultiObjectDataLoader(test_set, batch_size=100)
