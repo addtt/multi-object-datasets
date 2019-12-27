@@ -74,8 +74,9 @@ def main():
     # Show samples and print their attributes
     print("\nAttributes of shown samples:")
     plt.figure(figsize=(12, 12))
-    for i in range(16):
-        plt.subplot(4, 4, i+1)
+    n = 4
+    for i in range(n ** 2):
+        plt.subplot(n, n, i+1)
         plt.imshow(dataset[i])
         plt.gca().tick_params(
             axis='both',
