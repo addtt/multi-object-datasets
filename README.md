@@ -60,9 +60,12 @@ python 3.6.9
 numpy 1.17.2
 matplotlib 3.1.1
 pytorch 1.3.1
+torchvision 0.4.2
 scikit-image 0.16.2
 ```
 
+
+### Footnotes
 
 <b id="f1"><sup>1</sup></b> This is actually an extension of the original [dSprites](https://github.com/deepmind/dsprites-dataset)
 dataset to many objects and to color images. [↩](#a1)
