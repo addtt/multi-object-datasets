@@ -23,10 +23,10 @@ yourself (see below for how to do this)
 
 Basic usage:
 ```python
-    train_set = MultiObjectDataset(dataset_path, train=True)
-    test_set = MultiObjectDataset(dataset_path, train=False)
-    train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=True)
-    test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
+train_set = MultiObjectDataset(dataset_path, train=True)
+test_set = MultiObjectDataset(dataset_path, train=False)
+train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=True)
+test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
 ```
 
 See the simple VAE demo, and run it like this:
