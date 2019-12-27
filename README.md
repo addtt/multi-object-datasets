@@ -6,9 +6,9 @@ of objects in an image, and the attributes of all objects. The attributes are
 dataset-specific.
 
 Currently available datasets in `generated/`:
-- 100k binary RGB images with 1 dSprite[^1] per image on a black canvas, and 
+- 100k binary RGB images with 1 dSprite<sup id="a1">[1](#f1)</sup> per image on a black canvas, and 
 sprites have 7 colors;
-- 100k binary RGB images with 0, 1, or 2 (uniformly) dSprites[^1] per image on 
+- 100k binary RGB images with 0, 1, or 2 (uniformly) dSprites per image on 
 a black canvas, and sprites have 7 colors.
 
 
@@ -64,5 +64,5 @@ scikit-image 0.16.2
 ```
 
 
-[^1] This is actually an extension of the original [dSprites](https://github.com/deepmind/dsprites-dataset)
-dataset to many objects and to color images.
+<b id="f1">1</b> This is actually an extension of the original [dSprites](https://github.com/deepmind/dsprites-dataset)
+dataset to many objects and to color images. [↩](#a1)
