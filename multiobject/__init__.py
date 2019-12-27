@@ -1,1 +1,1 @@
-from ._base import *
+from .generic import *

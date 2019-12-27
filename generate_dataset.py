@@ -8,27 +8,13 @@ from multiobject import generate_multiobject_dataset
 from multiobject.datasets import generate_dsprites
 from utils import get_date_str
 
+supported_sprites = ['dsprites']
 
 def main():
 
-    parser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        allow_abbrev=False)
-
-    parser.add_argument('--type',
-                        type=str,
-                        default='dsprites',
-                        metavar='NAME',
-                        dest='dataset_type',
-                        help="dataset type")
-
-    args = parser.parse_args()
-    if args.dataset_type != 'dsprites':
-        raise NotImplementedError(
-            "unsupported dataset '{}'".format(args.dataset_type))
+    args = parse_args()
 
     ### SETTINGS #############################
-
     n = 100000   # num images
     frame_size = (64, 64)
     patch_size = 18
@@ -38,7 +24,6 @@ def main():
     allow_overlap = True
 
     root = os.path.join('generated', args.dataset_type)
-
     ##########################################
 
 
@@ -99,6 +84,23 @@ def main():
     plt.title("Distribution of num objects per image")
     plt.xlabel("Number of objects")
     plt.show()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        allow_abbrev=False)
+    parser.add_argument('--type',
+                        type=str,
+                        default='dsprites',
+                        metavar='NAME',
+                        dest='dataset_type',
+                        help="dataset type")
+    args = parser.parse_args()
+    if args.dataset_type not in supported_sprites:
+        raise NotImplementedError(
+            "unsupported dataset '{}'".format(args.dataset_type))
+    return args
 
 
 if __name__ == '__main__':

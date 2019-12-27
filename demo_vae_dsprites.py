@@ -113,7 +113,7 @@ def main():
 
 def forward(model, x, device):
 
-    # Forward
+    # Forward pass through model
     x = x.to(device)
     out, mu, lv = model(x)
 
