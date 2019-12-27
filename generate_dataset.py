@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import matplotlib.pyplot as plt
@@ -10,6 +11,22 @@ from utils import get_date_str
 
 def main():
 
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        allow_abbrev=False)
+
+    parser.add_argument('--type',
+                        type=str,
+                        default='dsprites',
+                        metavar='NAME',
+                        dest='dataset_type',
+                        help="dataset type")
+
+    args = parser.parse_args()
+    if args.dataset_type != 'dsprites':
+        raise NotImplementedError(
+            "unsupported dataset '{}'".format(args.dataset_type))
+
     ### SETTINGS #############################
 
     n = 100000   # num images
@@ -20,14 +37,17 @@ def main():
     count_distrib = {0: 1/3, 1: 1/3, 2: 1/3}
     allow_overlap = True
 
-    root = os.path.join('generated', 'dsprites')
+    root = os.path.join('generated', args.dataset_type)
 
     ##########################################
 
 
-    # Generate dSprites and labels
+    # Generate sprites and labels
     print("generating sprites...")
-    sprites, labels = generate_dsprites(patch_size)
+    if args.dataset_type == 'dsprites':
+        sprites, labels = generate_dsprites(patch_size)
+    else:
+        raise NotImplementedError
 
     # Create dataset
     print("generating dataset...")
@@ -46,7 +66,8 @@ def main():
     print("saving...")
     os.makedirs(root, exist_ok=True)
     file_str = get_date_str()
-    fname = os.path.join(root, 'multi_dsprites_' + file_str)
+    fname = 'multi_' + args.dataset_type + '_' + file_str
+    fname = os.path.join(root, fname)
     np.savez_compressed(fname, x=dataset, labels=labels)
     print('done')
 
