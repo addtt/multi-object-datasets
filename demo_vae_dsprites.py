@@ -105,10 +105,10 @@ def main():
         n = 6
         nimg = n ** 2 // 2
         fname = os.path.join('demo_output', '{}.png'.format(e))
-        imgs = torch.stack([x[:nimg], out[:nimg]])
+        imgs = torch.stack([x[:nimg], out[:nimg].cpu()])
         imgs = imgs.permute(1, 0, 2, 3, 4)
         imgs = imgs.reshape(n ** 2, x.size(1), x.size(2), x.size(3))
-        save_image(imgs.cpu(), fname, nrow=n)
+        save_image(imgs, fname, nrow=n)
 
 
 def forward(model, x, device):
