@@ -19,7 +19,9 @@ To use a multi-object dataset:
 yourself (see below for how to do this)
 - copy `MultiObjectDataset` and `MultiObjectDataLoader` from 
 `multiobject/generic.py` to your codebase
-- use the path to the `.npz` dataset when initializing the `MultiObjectDataset`:
+- use the path to the `.npz` dataset when initializing the `MultiObjectDataset`
+
+Basic usage:
 ```python
     train_set = MultiObjectDataset(dataset_path, train=True)
     test_set = MultiObjectDataset(dataset_path, train=False)
