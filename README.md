@@ -5,11 +5,13 @@ The datasets consist of images and a dictionary of labels, including the number
 of objects in an image, and the attributes of all objects. The attributes are
 managed automatically, they are dataset-specific.
 
-Currently available datasets in `generated/`:
-- 100k binary 64x64 RGB images with one dSprite<sup id="a1">[1](#f1)</sup> per 
-image on a black canvas, where sprites have 7 colors
+### Currently available datasets in `generated/`
+
+**dSprites**<sup id="a1">[1](#f1)</sup>:
+- 100k binary 64x64 RGB images with one dSprite per 
+image on a black canvas, where sprites have 7 colors &ndash; 10.6 MB
 - 100k binary 64x64 RGB images with 0, 1, or 2 (uniformly) dSprites per image on 
-a black canvas, where sprites have 7 colors and can overlap (sum and clip)
+a black canvas, where sprites have 7 colors and can overlap (sum and clip) &ndash; 11 MB
 
 
 ### Using a dataset
