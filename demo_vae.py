@@ -57,7 +57,7 @@ def main():
 
     args = parse_args()
 
-    path = os.path.join('generated', dataset_filename)
+    path = os.path.join('generated', args.dataset_name)
     os.makedirs('demo_output', exist_ok=True)
 
     # Datasets and dataloaders
@@ -145,7 +145,6 @@ def parse_args():
                         dest='dataset_name',
                         help="dataset name")
     return parser.parse_args()
-
 
 
 if __name__ == '__main__':
