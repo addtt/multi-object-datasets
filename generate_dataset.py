@@ -102,8 +102,7 @@ def parse_args():
         allow_abbrev=False)
     parser.add_argument('--type',
                         type=str,
-                        # default='dsprites',  TODO
-                        default='binary_mnist',
+                        default='dsprites',
                         metavar='NAME',
                         dest='dataset_type',
                         help="dataset type")
