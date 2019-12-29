@@ -11,16 +11,21 @@ from multiobject import MultiObjectDataLoader, MultiObjectDataset
 epochs = 100
 batch_size = 64
 lr = 1e-3
-dataset_filename = 'multi_dsprites_color_012.npz'
+dataset_filename = os.path.join(
+    'dsprites',
+    'multi_dsprites_color_012.npz')
+# dataset_filename = os.path.join(
+#     'binary_mnist',
+#     'multi_binary_mnist_012.npz')
 
 
 class VAE(nn.Module):
-    def __init__(self):
+    def __init__(self, color_channels):
         super().__init__()
         zdim = 32
 
         self.encoder = nn.Sequential(
-            nn.Conv2d(3, 64, 5, padding=2, stride=4),
+            nn.Conv2d(color_channels, 64, 5, padding=2, stride=4),
             nn.ELU(),
             nn.Dropout2d(0.25),
             nn.Conv2d(64, 64, 5, padding=2, stride=4),
@@ -33,7 +38,7 @@ class VAE(nn.Module):
             nn.ConvTranspose2d(64, 64, 5, padding=1, stride=4, output_padding=1),
             nn.ELU(),
             nn.Dropout2d(0.25),
-            nn.ConvTranspose2d(64, 3, 5, padding=0, stride=4, output_padding=0),
+            nn.ConvTranspose2d(64, color_channels, 5, padding=0, stride=4, output_padding=0),
             nn.Sigmoid()
         )
 
@@ -50,7 +55,7 @@ class VAE(nn.Module):
 
 def main():
 
-    path = os.path.join('generated', 'dsprites', dataset_filename)
+    path = os.path.join('generated', dataset_filename)
     os.makedirs('demo_output', exist_ok=True)
 
     # Datasets and dataloaders
@@ -60,11 +65,12 @@ def main():
     train_loader = MultiObjectDataLoader(
         train_set, batch_size=batch_size, shuffle=True, drop_last=True)
     test_loader = MultiObjectDataLoader(test_set, batch_size=100)
+    channels = train_set.x.shape[1]
 
     # Model and optimizer
     print("initializing model...")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = VAE().to(device)
+    model = VAE(channels).to(device)
     optimizer = Adam(model.parameters(), lr=lr)
 
     # Training loop
