@@ -10,7 +10,7 @@ from multiobject import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
 batch_size = 64
-lr = 1e-3
+lr = 3e-3
 dataset_filename = os.path.join(
     'dsprites',
     'multi_dsprites_color_012.npz')
@@ -22,23 +22,37 @@ dataset_filename = os.path.join(
 class VAE(nn.Module):
     def __init__(self, color_channels):
         super().__init__()
-        zdim = 32
+        zdim = 64
 
         self.encoder = nn.Sequential(
-            nn.Conv2d(color_channels, 64, 5, padding=2, stride=4),
-            nn.ELU(),
+            nn.Conv2d(color_channels, 64, 5, padding=2, stride=2),
             nn.Dropout2d(0.25),
-            nn.Conv2d(64, 64, 5, padding=2, stride=4),
             nn.ELU(),
+            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, 3, padding=1, stride=2),
+            nn.Dropout2d(0.25),
+            nn.ELU(),
+            nn.BatchNorm2d(64),
+            nn.Conv2d(64, 64, 3, padding=1, stride=2),
+            nn.Dropout2d(0.25),
+            nn.ELU(),
+            nn.BatchNorm2d(64),
             nn.Conv2d(64, 2 * zdim, 5, padding=2, stride=2),
         )
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(zdim, 64, 5, padding=2, stride=2, output_padding=1),
-            nn.ELU(),
-            nn.ConvTranspose2d(64, 64, 5, padding=1, stride=4, output_padding=1),
-            nn.ELU(),
             nn.Dropout2d(0.25),
-            nn.ConvTranspose2d(64, color_channels, 5, padding=0, stride=4, output_padding=0),
+            nn.ELU(),
+            nn.BatchNorm2d(64),
+            nn.ConvTranspose2d(64, 64, 3, padding=1, stride=2, output_padding=1),
+            nn.Dropout2d(0.25),
+            nn.ELU(),
+            nn.BatchNorm2d(64),
+            nn.ConvTranspose2d(64, 64, 3, padding=1, stride=2, output_padding=1),
+            nn.Dropout2d(0.25),
+            nn.ELU(),
+            nn.BatchNorm2d(64),
+            nn.ConvTranspose2d(64, color_channels, 5, padding=1, stride=2, output_padding=0),
             nn.Sigmoid()
         )
 
