@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from torch import nn
 from torch.optim import Adam
 from torchvision.utils import save_image
-
+import argparse
 from multiobject import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
@@ -54,6 +54,8 @@ class VAE(nn.Module):
 
 
 def main():
+
+    args = parse_args()
 
     path = os.path.join('generated', dataset_filename)
     os.makedirs('demo_output', exist_ok=True)
@@ -130,6 +132,20 @@ def forward(model, x, device):
     loss = recons + kl
 
     return out, loss, recons, kl
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        allow_abbrev=False)
+    parser.add_argument('--dataset',
+                        type=str,
+                        default=dataset_filename,
+                        metavar='NAME',
+                        dest='dataset_name',
+                        help="dataset name")
+    return parser.parse_args()
+
 
 
 if __name__ == '__main__':
