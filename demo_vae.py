@@ -3,14 +3,14 @@ import os
 import torch
 import torch.nn.functional as F
 from torch import nn
-from torch.optim import Adam
+from torch.optim.adamax import Adamax
 from torchvision.utils import save_image
 import argparse
 from multiobject import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
 batch_size = 64
-lr = 1e-3
+lr = 3e-4
 dataset_filename = os.path.join(
     'dsprites',
     'multi_dsprites_color_012.npz')
@@ -26,30 +26,30 @@ class VAE(nn.Module):
 
         self.encoder = nn.Sequential(
             nn.Conv2d(color_channels, 64, 5, padding=2, stride=2),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.Conv2d(64, 64, 3, padding=1, stride=2),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.BatchNorm2d(64),
             nn.Conv2d(64, 64, 3, padding=1, stride=2),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.BatchNorm2d(64),
             nn.Conv2d(64, 2 * zdim, 5, padding=2, stride=2),
         )
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(zdim, 64, 5, padding=2, stride=2, output_padding=1),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.BatchNorm2d(64),
             nn.ConvTranspose2d(64, 64, 3, padding=1, stride=2, output_padding=1),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.BatchNorm2d(64),
             nn.ConvTranspose2d(64, 64, 3, padding=1, stride=2, output_padding=1),
-            nn.Dropout2d(0.25),
-            nn.ELU(),
+            nn.Dropout2d(0.2),
+            nn.LeakyReLU(),
             nn.ConvTranspose2d(64, color_channels, 5, padding=1, stride=2, output_padding=0),
             nn.Sigmoid()
         )
@@ -85,7 +85,7 @@ def main():
     print("initializing model...")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = VAE(channels).to(device)
-    optimizer = Adam(model.parameters(), lr=lr)
+    optimizer = Adamax(model.parameters(), lr=lr)
 
     # Training loop
     print("training starts")
