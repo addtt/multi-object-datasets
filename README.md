@@ -9,11 +9,18 @@ managed automatically, but they are dataset-specific.
 
 Datasets are available as `.npz` files in `./generated/`.
 
-dSprites<sup id="a1">[1](#f1)</sup>:
-- 100k binary 64x64 RGB images with one dSprite per 
-image on a black canvas, where sprites have 7 colors [10.6 MB]
-- 100k binary 64x64 RGB images with 0, 1, or 2 (uniformly) dSprites per image on 
-a black canvas, where sprites have 7 colors and can overlap (sum and clip) [11 MB]
+####dSprites<sup id="a1">[1](#f1)</sup>
+The datasets consist of binary 64x64 RGB images with monochromatic dSprites on a black canvas. 
+Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
+- 100k images with 1 dSprite per image [10.6 MB]
+- 100k images with 0, 1, or 2 (uniformly) sprites per image [11 MB]
+
+####MNIST
+The datasets consist of binary 64x64 single-channel images with MNIST digits on a black canvas.
+Digits are rescaled to 18x18 and binarized, and they can overlap (sum and clip).
+Only digits from the MNIST training set are used (60k).
+- 100k images with 1 digit per image [4.5 MB]
+- 100k images with 0, 1, or 2 (uniformly) digits per image [4.8 MB]
 
 
 ### Using a dataset
