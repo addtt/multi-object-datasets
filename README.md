@@ -59,7 +59,9 @@ For example, to generate a dSprites dataset, run:
 python generate_dataset.py --type dsprites
 ```
 
-![generated samples](./.readme_figs/generated.png)
+![generated generated_dsprites](./.readme_figs/generated_dsprites.png)
+
+![generated mnist](./.readme_figs/generated_mnist.png)
 
 To generate a dataset with a new type of sprites:
 - create a file `multiobject/sprites/xyz.py` containing a function 
