@@ -93,9 +93,8 @@ numpy 1.17.2
 scikit-image 0.16.2
 ```
 
-These are only necessary to run the examples:
+Only necessary to run the examples:
 ```
-matplotlib 3.1.1
 pytorch 1.3.1
 torchvision 0.4.2
 ```
