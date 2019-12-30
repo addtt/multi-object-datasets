@@ -1,4 +1,5 @@
 import datetime
+import numpy as np
 
 import matplotlib.pyplot as plt
 
@@ -6,11 +7,20 @@ import matplotlib.pyplot as plt
 def get_date_str():
     return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 
-def show_img_grid(n, imgs, labels=None):
-    plt.figure(figsize=(n * 2, n * 2))
-    for i in range(n ** 2):
+def show_img_grid(n, imgs, labels=None, random_selection=False, save=False):
+    if random_selection:
+        indices = np.random.choice(range(len(imgs)), n ** 2)
+    else:
+        indices = range(n ** 2)
+    plt.figure(figsize=(n, n))
+    for i in range(len(indices)):
+        j = indices[i]
         plt.subplot(n, n, i + 1)
-        plt.imshow(imgs[i].squeeze(), vmin=0, vmax=255)
+        if imgs[j].shape[-1] == 1:
+            cmap = 'gray'
+        else:
+            cmap = None
+        plt.imshow(imgs[j].squeeze(), vmin=0, vmax=255, cmap=cmap)
         plt.gca().tick_params(
             axis='both',
             which='both',  # both major and minor ticks are affected
@@ -22,8 +32,11 @@ def show_img_grid(n, imgs, labels=None):
             labelbottom=False)
         plt.subplots_adjust(top=.99, bottom=.01,
                             left=.01, right=.99,
-                            wspace=.01, hspace=.01)
+                            wspace=.04, hspace=.04)
         if labels is not None:
-            lst = ["{} {}".format(k, labels[k][i]) for k in labels.keys()]
+            lst = ["{} {}".format(k, labels[k][j]) for k in labels.keys()]
             print(list(lst))
-    plt.show()
+    if save:
+        plt.savefig('generated_{}.png'.format(get_date_str()))
+    else:
+        plt.show()

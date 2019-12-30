@@ -35,7 +35,7 @@ def main():
         raise NotImplementedError
 
     # Show sprites
-    show_img_grid(8, sprites)
+    show_img_grid(8, sprites, random_selection=True)
 
     # Create dataset
     print("generating dataset...")
