@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import torch
@@ -5,7 +6,7 @@ import torch.nn.functional as F
 from torch import nn
 from torch.optim.adamax import Adamax
 from torchvision.utils import save_image
-import argparse
+
 from multiobject import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
