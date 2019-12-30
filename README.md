@@ -3,7 +3,12 @@
 Tools to generate and use multi-object/multi-sprite datasets.
 The datasets consist of images and a dictionary of labels, including the number
 of objects in an image, and the attributes of all objects. The attributes are
-managed automatically, but they are dataset-specific.
+managed automatically when generating a dataset from a set of sprites, but they 
+are dataset-specific so they have to be specified when creating the sprites.
+
+The only requirements are scikit-image (for generation only) and numpy. There are
+usage examples in PyTorch.
+
 
 ### Currently available datasets
 
@@ -59,10 +64,6 @@ For example, to generate a dSprites dataset, run:
 python generate_dataset.py --type dsprites
 ```
 
-![generated generated_dsprites](./.readme_figs/generated_dsprites.png)
-
-![generated mnist](./.readme_figs/generated_mnist.png)
-
 To generate a dataset with a new type of sprites:
 - create a file `multiobject/sprites/xyz.py` containing a function 
 `generate_xyz()`, where "xyz" denotes the new sprite type
@@ -76,6 +77,11 @@ For now, the following has to be customized in `generate_dataset.py` directly:
 - dataset size
 - whether sprites can overlap
 
+### Examples
+
+![generated generated_dsprites](./.readme_figs/generated_dsprites.png)
+
+![generated mnist](./.readme_figs/generated_mnist.png)
 
 
 ### Requirements
@@ -84,10 +90,14 @@ Tested with (not hard requirements):
 ```
 python 3.6.9
 numpy 1.17.2
+scikit-image 0.16.2
+```
+
+These are only necessary to run the examples:
+```
 matplotlib 3.1.1
 pytorch 1.3.1
 torchvision 0.4.2
-scikit-image 0.16.2
 ```
 
 
