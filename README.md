@@ -52,7 +52,7 @@ For now, the custom DataLoader is not compatible with multiprocessing (`num_work
 
 See the simple VAE demo, and run it like this:
 ```
-CUDA_VISIBLE_DEVICES=0 python demo_vae_dsprites.py
+CUDA_VISIBLE_DEVICES=0 python demo_vae.py
 ```
 
 

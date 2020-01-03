@@ -70,7 +70,7 @@ def main():
 
     args = parse_args()
 
-    path = os.path.join('generated', args.dataset_name)
+    path = os.path.join('generated', args.dataset_path)
     os.makedirs('demo_output', exist_ok=True)
 
     # Datasets and dataloaders
@@ -154,9 +154,9 @@ def parse_args():
     parser.add_argument('--dataset',
                         type=str,
                         default=dataset_filename,
-                        metavar='NAME',
-                        dest='dataset_name',
-                        help="dataset name")
+                        metavar='PATH',
+                        dest='dataset_path',
+                        help="relative path of the dataset")
     return parser.parse_args()
 
 
