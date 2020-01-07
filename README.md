@@ -47,9 +47,6 @@ train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=T
 test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
 ```
 
-**Warning**:
-For now, the custom DataLoader is not compatible with multiprocessing (`num_workers` > 0). Note that, for small datasets that fit in memory, multiprocessing doesn't really matter anyway.
-
 See the simple VAE demo, and run it like this:
 ```
 CUDA_VISIBLE_DEVICES=0 python demo_vae.py
