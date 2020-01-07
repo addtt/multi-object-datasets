@@ -43,14 +43,30 @@ class MultiObjectDataLoader(DataLoader):
 
         # For each item in the batch, take each key and pad the corresponding
         # value (label) so we can call the default collate function
+        pad = MultiObjectDataLoader._pad_tensor
         for i in range(len(batch)):
             for k in keys:
                 if trailing_dims[k] is None:
                     continue
                 size = [max_len[k]] + list(trailing_dims[k])
-                batch[i][1][k] = _pad_tensor(batch[i][1][k], size)
+                batch[i][1][k] = pad(batch[i][1][k], size)
 
         return default_collate(batch)
+
+    @staticmethod
+    def _pad_tensor(x, size, value=None):
+        assert isinstance(x, torch.Tensor)
+        input_size = len(x)
+        if value is None:
+            value = float('nan')
+
+        # Copy input tensor into a tensor filled with specified value
+        # Convert everything to float, not ideal but it's robust
+        out = torch.zeros(*size, dtype=torch.float)
+        out.fill_(value)
+        if input_size > 0:  # only if at least one element in the sequence
+            out[:input_size] = x.float()
+        return out
 
 
 class MultiObjectDataset(Dataset):
@@ -264,18 +280,3 @@ def generate_multiobject_dataset(n, shape, sprites, sprites_attr, count_distrib,
         labels[k] = [labels[k][i] for i in perm]
 
     return images, n_objects, labels
-
-
-def _pad_tensor(x, size, value=None):
-    assert isinstance(x, torch.Tensor)
-    input_size = len(x)
-    if value is None:
-        value = float('nan')
-
-    # Copy input tensor into a tensor filled with specified value
-    # Convert everything to float, not ideal but it's robust
-    out = torch.zeros(*size, dtype=torch.float)
-    out.fill_(value)
-    if input_size > 0:  # only if at least one element in the sequence
-        out[:input_size] = x.float()
-    return out
