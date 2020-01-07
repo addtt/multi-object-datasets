@@ -15,18 +15,6 @@ class MultiObjectDataLoader(DataLoader):
     @staticmethod
     def collate_fn(batch):
 
-        def _pad_tensor(x, size):
-            assert isinstance(x, torch.Tensor)
-            input_size = len(x)
-
-            # Copy input tensor into a tensor of nan
-            # Convert everything to float, not ideal but it's robust
-            out = torch.zeros(*size, dtype=torch.float)
-            out.fill_(float('nan'))
-            if input_size > 0:
-                out[:input_size] = x.float()
-            return out
-
         # The input is a batch of (image, label_dict)
         _, item_labels = batch[0]
         keys = item_labels.keys()
@@ -63,7 +51,6 @@ class MultiObjectDataLoader(DataLoader):
                 batch[i][1][k] = _pad_tensor(batch[i][1][k], size)
 
         return default_collate(batch)
-
 
 
 class MultiObjectDataset(Dataset):
@@ -277,3 +264,18 @@ def generate_multiobject_dataset(n, shape, sprites, sprites_attr, count_distrib,
         labels[k] = [labels[k][i] for i in perm]
 
     return images, n_objects, labels
+
+
+def _pad_tensor(x, size, value=None):
+    assert isinstance(x, torch.Tensor)
+    input_size = len(x)
+    if value is None:
+        value = float('nan')
+
+    # Copy input tensor into a tensor filled with specified value
+    # Convert everything to float, not ideal but it's robust
+    out = torch.zeros(*size, dtype=torch.float)
+    out.fill_(value)
+    if input_size > 0:  # only if at least one element in the sequence
+        out[:input_size] = x.float()
+    return out
