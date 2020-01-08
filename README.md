@@ -47,9 +47,10 @@ train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=T
 test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
 ```
 
-See the simple VAE demo, and run it like this:
+See also the simple demos:
 ```
 CUDA_VISIBLE_DEVICES=0 python demo_vae.py
+CUDA_VISIBLE_DEVICES=0 python demo_count.py
 ```
 
 
