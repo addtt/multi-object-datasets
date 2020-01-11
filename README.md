@@ -11,7 +11,7 @@ usage examples in PyTorch.
 ## Usage
 
 1) Either download one of the [datasets](#available-datasets) in `generated/`, 
-   or [generate a new one](#generating-dataset). Place the `.npz` dataset in 
+   or [generate a new one](#generating-a-new-dataset). Place the `.npz` dataset in 
    `/path/to/data/`. 
 2) `pip install git+https://github.com/addtt/multi-object-datasets.git`
 3) use as follows:
@@ -35,8 +35,7 @@ CUDA_VISIBLE_DEVICES=0 python demo_count.py
 ```
 
 
-(#available-datasets)
-## Currently available datasets
+## Available datasets
 
 Datasets are available as `.npz` files in `./generated/`.
 
@@ -60,7 +59,6 @@ Only digits from the MNIST training set are used (60k).
 ![generated mnist](_readme_figs/generated_mnist.png)
 
 
-(#generating-dataset)
 ## Generating a new dataset
 
 
@@ -78,7 +76,7 @@ python generate_dataset.py --type dsprites
 
 2) Clone this repo.
 
-3) See [requirements](#req), or set up a virtual environment as follows:
+3) See [requirements](#requirements), or set up a virtual environment as follows:
 	```
 	conda create --name multiobject python=3.7
 	conda activate multiobject
@@ -100,20 +98,21 @@ they have to be defined when creating the sprites.
 - whether sprites can overlap
 
 
-(#req)
 ## Requirements
 
-Tested with (not hard requirements):
+To generate datasets:
 ```
-python 3.6.9
-numpy 1.17.2
-scikit-image 0.16.2
+numpy==1.18.1
+matplotlib==3.1.2
+scikit_image==0.16.2
+pillow==6.2.2
+tqdm==4.41.1
 ```
 
-Only necessary to run the examples:
+To run the examples or use the pytorch tools:
 ```
-pytorch 1.3.1
-torchvision 0.4.2
+torch==1.3.1
+torchvision==0.4.2
 ```
 
 
