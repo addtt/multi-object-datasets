@@ -8,14 +8,14 @@ Using datasets only requires `numpy` as datasets are `.npz`.
 Generating sprites requires `scikit-image`. Tools for using the
 datasets in PyTorch are provided, with usage examples.
 
-## Usage
+## Basic usage
 
 1) Either download one of the [datasets](#available-datasets) in `generated/`, 
    or [generate a new one](#generating-a-new-dataset).
 2) Place the `.npz` dataset in 
    `/path/to/data/`. 
 3) `pip install git+https://github.com/addtt/multi-object-datasets.git`
-4) In PyTorch, use as follows:
+4) Usage in PyTorch:
 	```python
 	from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
 	dataset_path = '/path/to/data/some_dataset.npz'
@@ -26,7 +26,7 @@ datasets in PyTorch are provided, with usage examples.
 	```
 
 
-See also the simple demos:
+#### Run demos
 ```
 conda create --name multiobject python=3.7
 conda activate multiobject
