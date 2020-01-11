@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from multiobject import generate_multiobject_dataset
-from multiobject.sprites import generate_dsprites, generate_binary_mnist
+from sprites import generate_dsprites, generate_binary_mnist
 from utils import get_date_str, show_img_grid
 
 supported_sprites = ['dsprites', 'binary_mnist']
@@ -35,7 +35,8 @@ def main():
         raise NotImplementedError
 
     # Show sprites
-    show_img_grid(8, sprites, random_selection=True)
+    show_img_grid(8, sprites, random_selection=True,
+                  fname='gen_{}_sprites.png'.format(get_date_str()))
 
     # Create dataset
     print("generating dataset...")
@@ -62,15 +63,16 @@ def main():
     print('done')
 
     # Show samples and print their attributes
-    print("\nAttributes of shown samples:")
-    show_img_grid(4, dataset, labels)
+    print("\nAttributes of saved samples:")
+    show_img_grid(4, dataset, labels,
+                  fname='gen_{}_images.png'.format(get_date_str()))
 
     # Show distribution of number of objects per image
     plt.figure()
     plt.hist(n_obj, np.arange(min(n_obj) - 0.5, max(n_obj) + 0.5 + 1, 1))
     plt.title("Distribution of num objects per image")
     plt.xlabel("Number of objects")
-    plt.show()
+    plt.savefig('gen_{}_distribution.png'.format(get_date_str()))
 
 
 def parse_args():

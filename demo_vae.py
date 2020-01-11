@@ -7,7 +7,7 @@ from torch import nn
 from torch.optim.adamax import Adamax
 from torchvision.utils import save_image
 
-from multiobject import MultiObjectDataLoader, MultiObjectDataset
+from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
 batch_size = 64

@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torch import nn
 from torch.optim.adamax import Adamax
 
-from multiobject import MultiObjectDataLoader, MultiObjectDataset
+from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
 
 epochs = 100
 batch_size = 64

@@ -7,7 +7,7 @@ import numpy as np
 def get_date_str():
     return datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 
-def show_img_grid(n, imgs, labels=None, random_selection=False, save=False):
+def show_img_grid(n, imgs, labels=None, random_selection=False, fname=None):
     if random_selection:
         indices = np.random.choice(range(len(imgs)), n ** 2)
     else:
@@ -36,7 +36,7 @@ def show_img_grid(n, imgs, labels=None, random_selection=False, save=False):
         if labels is not None:
             lst = ["{} {}".format(k, labels[k][j]) for k in labels.keys()]
             print(list(lst))
-    if save:
-        plt.savefig('generated_{}.png'.format(get_date_str()))
+    if fname is not None:
+        plt.savefig(fname)
     else:
         plt.show()
