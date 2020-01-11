@@ -2,7 +2,7 @@
 
 Tools to generate and use multi-object datasets.
 The datasets consist of images and a dictionary of labels, where each image is
-labeled by the number of objects in it, and the attributes of all objects. 
+labeled with 1) the number of objects in it and 2) each object's attributes. 
 
 Using datasets only requires `numpy` as datasets are `.npz`. 
 Generating sprites requires `scikit-image`. Tools for using the
@@ -42,7 +42,7 @@ Datasets are available as `.npz` files in `./generated/`.
 
 #### dSprites<sup id="a1">[1](#f1)</sup>
 
-The datasets consist of binary 64x64 RGB images with monochromatic dSprites on a black canvas. 
+Binary 64x64 RGB images with monochromatic dSprites on a black canvas. 
 Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
 - 100k images with 1 dSprite per image [10.6 MB]
 - 100k images with 0, 1, or 2 (uniformly) sprites per image [11 MB]
@@ -51,7 +51,7 @@ Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
 
 #### Binarized MNIST
 
-The datasets consist of binary 64x64 single-channel images with MNIST digits on a black canvas.
+Binary 64x64 single-channel images with MNIST digits on a black canvas.
 Digits are rescaled to 18x18 and binarized, and they can overlap (sum and clip).
 Only digits from the MNIST training set are used (60k).
 - 100k images with 1 digit per image [4.5 MB]
@@ -62,20 +62,20 @@ Only digits from the MNIST training set are used (60k).
 
 ## Generating a new dataset
 
-1) Optional: generate a new type of sprites:
-	1) create a file `multiobject/sprites/xyz.py` containing a function 
-	`generate_xyz()`, where "xyz" denotes the new sprite type
-	2) in `generate_dataset.py`, add a call to `generate_xyz()` to generate the
-	correct sprites, and add `'xyz'` to the list of supported sprites
+1) Clone this repo.
 
-2) Clone this repo.
-
-3) See [requirements](#requirements), or set up a virtual environment as follows:
+2) See [requirements](#requirements), or set up a virtual environment as follows:
 	```
 	conda create --name multiobject python=3.7
 	conda activate multiobject
 	pip install -r requirements.txt
 	```
+
+3) Optional: generate a new type of sprites:
+	1) create a file `sprites/xyz.py` containing a function 
+	`generate_xyz()`, where "xyz" denotes the new sprite type
+	2) in `generate_dataset.py`, add a call to `generate_xyz()` to generate the
+	correct sprites, and add `'xyz'` to the list of supported sprites
 
 4) Call `generate_dataset.py` with the desired sprite type as `--type` argument. 
 Example:
@@ -83,11 +83,11 @@ Example:
     python generate_dataset.py --type dsprites
     ```
 
-The attributes are managed automatically when generating a dataset from a set 
+The sprite attributes are managed automatically when generating a dataset from a set 
 of sprites that have per-sprite labels. However, since they are dataset-specific,
 they have to be defined when creating the sprites.
 
-**Note.** For now, the following has to be customized in `generate_dataset.py` directly:
+**Note.** For now, the following parameters have to be customized in `generate_dataset.py` directly:
 - probability distribution over number of objects
 - image size
 - sprite size
