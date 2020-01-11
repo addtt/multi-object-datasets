@@ -8,7 +8,7 @@ Using datasets only requires `numpy` as datasets are `.npz`.
 Generating sprites requires `scikit-image`. Tools for using the
 datasets in PyTorch are provided, with usage examples.
 
-## Basic usage
+## Basic usage (pip package)
 
 1) Either download one of the [datasets](#available-datasets) in `generated/`, 
    or [generate a new one](#generating-a-new-dataset).
