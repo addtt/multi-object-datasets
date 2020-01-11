@@ -11,10 +11,11 @@ usage examples in PyTorch.
 ## Usage
 
 1) Either download one of the [datasets](#available-datasets) in `generated/`, 
-   or [generate a new one](#generating-a-new-dataset). Place the `.npz` dataset in 
+   or [generate a new one](#generating-a-new-dataset).
+2) Place the `.npz` dataset in 
    `/path/to/data/`. 
-2) `pip install git+https://github.com/addtt/multi-object-datasets.git`
-3) use as follows:
+3) `pip install git+https://github.com/addtt/multi-object-datasets.git`
+4) use as follows:
 	```python
 	from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
 	dataset_path = '/path/to/data/some_dataset.npz'
