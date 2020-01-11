@@ -1,16 +1,42 @@
 # Multi-object datasets
 
-Tools to generate and use multi-object/multi-sprite datasets.
-The datasets consist of images and a dictionary of labels, including the number
-of objects in an image, and the attributes of all objects. The attributes are
-managed automatically when generating a dataset from a set of sprites, but they 
-are dataset-specific so they have to be specified when creating the sprites.
+Tools to generate and use multi-object datasets.
+The datasets consist of images and a dictionary of labels, where each image is
+labeled by the number of objects in it, and the attributes of all objects. 
 
-The only requirements are scikit-image (for generation only) and numpy. There are
+Using datasets only requires `numpy` as datasets are `.npz`. 
+Generating sprites requires `scikit-image`, and there are
 usage examples in PyTorch.
 
+## Usage
 
-### Currently available datasets
+1) Either download one of the [datasets](#available-datasets) in `generated/`, 
+   or [generate a new one](#generating-dataset). Place the `.npz` dataset in 
+   `/path/to/data/`. 
+2) `pip install git+https://github.com/addtt/multi-object-datasets.git`
+3) use as follows:
+	```python
+	from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
+	dataset_path = '/path/to/data/some_dataset.npz'
+	train_set = MultiObjectDataset(dataset_path, train=True)
+	test_set = MultiObjectDataset(dataset_path, train=False)
+	train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=True)
+	test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
+	```
+
+
+See also the simple demos:
+```
+conda create --name multiobject python=3.7
+conda activate multiobject
+pip install -r requirements.txt
+CUDA_VISIBLE_DEVICES=0 python demo_vae.py
+CUDA_VISIBLE_DEVICES=0 python demo_count.py
+```
+
+
+(#available-datasets)
+## Currently available datasets
 
 Datasets are available as `.npz` files in `./generated/`.
 
@@ -21,7 +47,9 @@ Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
 - 100k images with 1 dSprite per image [10.6 MB]
 - 100k images with 0, 1, or 2 (uniformly) sprites per image [11 MB]
 
-#### MNIST
+![generated generated_dsprites](_readme_figs/generated_dsprites.png)
+
+#### Binarized MNIST
 
 The datasets consist of binary 64x64 single-channel images with MNIST digits on a black canvas.
 Digits are rescaled to 18x18 and binarized, and they can overlap (sum and clip).
@@ -29,32 +57,12 @@ Only digits from the MNIST training set are used (60k).
 - 100k images with 1 digit per image [4.5 MB]
 - 100k images with 0, 1, or 2 (uniformly) digits per image [4.8 MB]
 
-
-### Using a dataset
-
-To use a multi-object dataset:
-- get one of the `.npz` datasets provided in `generated/`, or generate one 
-yourself (see below for how to do this)
-- copy `MultiObjectDataset` and `MultiObjectDataLoader` from 
-`multiobject/generic.py` to your codebase
-- use the path to the `.npz` dataset when initializing the `MultiObjectDataset`
-
-Basic usage:
-```python
-train_set = MultiObjectDataset(dataset_path, train=True)
-test_set = MultiObjectDataset(dataset_path, train=False)
-train_loader = MultiObjectDataLoader(train_set, batch_size=batch_size, shuffle=True)
-test_loader = MultiObjectDataLoader(test_set, batch_size=test_batch_size)
-```
-
-See also the simple demos:
-```
-CUDA_VISIBLE_DEVICES=0 python demo_vae.py
-CUDA_VISIBLE_DEVICES=0 python demo_count.py
-```
+![generated mnist](_readme_figs/generated_mnist.png)
 
 
-### Generating a dataset
+(#generating-dataset)
+## Generating a new dataset
+
 
 Call `generate_dataset.py` with the desired sprite type as `--type` argument. 
 For example, to generate a dSprites dataset, run:
@@ -62,27 +70,38 @@ For example, to generate a dSprites dataset, run:
 python generate_dataset.py --type dsprites
 ```
 
-To generate a dataset with a new type of sprites:
-- create a file `multiobject/sprites/xyz.py` containing a function 
-`generate_xyz()`, where "xyz" denotes the new sprite type
-- in `generate_dataset.py`, add a call to `generate_xyz()` to generate the
-correct sprites, and add `'xyz'` to the list of supported sprites
+1) Optional: generate a new type of sprites:
+	1) create a file `multiobject/sprites/xyz.py` containing a function 
+	`generate_xyz()`, where "xyz" denotes the new sprite type
+	2) in `generate_dataset.py`, add a call to `generate_xyz()` to generate the
+	correct sprites, and add `'xyz'` to the list of supported sprites
 
-For now, the following has to be customized in `generate_dataset.py` directly:
+2) Clone this repo.
+
+3) See [requirements](#req), or set up a virtual environment as follows:
+	```
+	conda create --name multiobject python=3.7
+	conda activate multiobject
+	pip install -r requirements.txt
+	```
+
+4) Call `generate_dataset.py` with the desired sprite type as `--type` argument. 
+Example: `python generate_dataset.py --type dsprites`
+
+The attributes are managed automatically when generating a dataset from a set 
+of sprites that have per-sprite labels. However, since they are dataset-specific,
+they have to be defined when creating the sprites.
+
+**Note**: For now, the following has to be customized in `generate_dataset.py` directly:
 - probability distribution over number of objects
 - image size
 - sprite size
 - dataset size
 - whether sprites can overlap
 
-### Examples
 
-![generated generated_dsprites](_readme_figs/generated_dsprites.png)
-
-![generated mnist](_readme_figs/generated_mnist.png)
-
-
-### Requirements
+(#req)
+## Requirements
 
 Tested with (not hard requirements):
 ```
@@ -98,7 +117,7 @@ torchvision 0.4.2
 ```
 
 
-### Footnotes
+## Footnotes
 
 <b id="f1"><sup>1</sup></b> This is actually an extension of the original [dSprites](https://github.com/deepmind/dsprites-dataset)
 dataset to many objects and to color images. [↩](#a1)
