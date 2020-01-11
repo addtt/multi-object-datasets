@@ -5,8 +5,8 @@ The datasets consist of images and a dictionary of labels, where each image is
 labeled by the number of objects in it, and the attributes of all objects. 
 
 Using datasets only requires `numpy` as datasets are `.npz`. 
-Generating sprites requires `scikit-image`, and there are
-usage examples in PyTorch.
+Generating sprites requires `scikit-image`. Tools for using the
+datasets in PyTorch are provided, with usage examples.
 
 ## Usage
 
@@ -15,7 +15,7 @@ usage examples in PyTorch.
 2) Place the `.npz` dataset in 
    `/path/to/data/`. 
 3) `pip install git+https://github.com/addtt/multi-object-datasets.git`
-4) use as follows:
+4) In PyTorch, use as follows:
 	```python
 	from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
 	dataset_path = '/path/to/data/some_dataset.npz'
@@ -62,13 +62,6 @@ Only digits from the MNIST training set are used (60k).
 
 ## Generating a new dataset
 
-
-Call `generate_dataset.py` with the desired sprite type as `--type` argument. 
-For example, to generate a dSprites dataset, run:
-```
-python generate_dataset.py --type dsprites
-```
-
 1) Optional: generate a new type of sprites:
 	1) create a file `multiobject/sprites/xyz.py` containing a function 
 	`generate_xyz()`, where "xyz" denotes the new sprite type
@@ -85,13 +78,16 @@ python generate_dataset.py --type dsprites
 	```
 
 4) Call `generate_dataset.py` with the desired sprite type as `--type` argument. 
-Example: `python generate_dataset.py --type dsprites`
+Example:
+    ```
+    python generate_dataset.py --type dsprites
+    ```
 
 The attributes are managed automatically when generating a dataset from a set 
 of sprites that have per-sprite labels. However, since they are dataset-specific,
 they have to be defined when creating the sprites.
 
-**Note**: For now, the following has to be customized in `generate_dataset.py` directly:
+**Note.** For now, the following has to be customized in `generate_dataset.py` directly:
 - probability distribution over number of objects
 - image size
 - sprite size
