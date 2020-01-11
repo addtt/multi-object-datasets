@@ -77,9 +77,9 @@ For now, the following has to be customized in `generate_dataset.py` directly:
 
 ### Examples
 
-![generated generated_dsprites](./.readme_figs/generated_dsprites.png)
+![generated generated_dsprites](_readme_figs/generated_dsprites.png)
 
-![generated mnist](./.readme_figs/generated_mnist.png)
+![generated mnist](_readme_figs/generated_mnist.png)
 
 
 ### Requirements

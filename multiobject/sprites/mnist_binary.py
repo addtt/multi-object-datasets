@@ -22,7 +22,7 @@ def generate_binary_mnist(patch_size,
     """
 
     # Read archive with original MNIST dataset
-    mnist_file = os.path.join('.data', 'mnist', 'original_mnist.npz')
+    mnist_file = os.path.join('_data', 'mnist', 'original_mnist.npz')
     npz = np.load(mnist_file)
 
     # Only keep training digits
