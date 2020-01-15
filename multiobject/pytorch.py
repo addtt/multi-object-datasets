@@ -77,7 +77,7 @@ class MultiObjectDataset(Dataset):
         data = np.load(data_path, allow_pickle=True)
 
         # Rescale images and permute dimensions
-        x = np.array(data['x'], dtype=np.float32) / 255
+        x = np.asarray(data['x'], dtype=np.float32) / 255
         x = np.transpose(x, [0, 3, 1, 2])  # batch, channels, h, w
 
         # Get labels
