@@ -1,5 +1,8 @@
 import setuptools
 
+from multiobject import __version__
+
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
@@ -8,7 +11,7 @@ packages = [p for p in packages if p.startswith('multiobject')]
 
 setuptools.setup(
     name="multiobject",  # Replace with your own username
-    version="0.0.1",
+    version=__version__,
     author="Andrea Dittadi",
     author_email="andrea.dittadi@gmail.com",
     description="Tools to generate and use multi-object datasets",
