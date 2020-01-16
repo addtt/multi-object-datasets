@@ -44,7 +44,8 @@ Datasets are available as `.npz` files in `./generated/`.
 
 Binary 64x64 RGB images with monochromatic dSprites on a black canvas. 
 Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
-- 100k images with 1 dSprite per image [10.6 MB]
+- 100k images with 1 sprite per image [10.6 MB]
+- 100k images with 1 sprite per image, larger sprites (max 28x28) [12.4 MB]
 - 100k images with 0, 1, or 2 (uniformly) sprites per image [11 MB]
 
 ![generated generated_dsprites](_readme_figs/generated_dsprites.png)
@@ -102,14 +103,13 @@ To generate datasets:
 numpy==1.18.1
 matplotlib==3.1.2
 scikit_image==0.16.2
-pillow==6.2.2
 tqdm==4.41.1
 ```
 
 To run the examples or use the pytorch tools:
 ```
-torch==1.3.1
-torchvision==0.4.2
+torch==1.4.0
+torchvision==0.5.0
 ```
 
 
