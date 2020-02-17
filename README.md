@@ -42,11 +42,14 @@ Datasets are available as `.npz` files in `./generated/`.
 
 #### dSprites<sup id="a1">[1](#f1)</sup>
 
-Binary 64x64 RGB images with monochromatic dSprites on a black canvas. 
-Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
-- 100k images with 1 sprite per image [10.6 MB]
-- 100k images with 1 sprite per image, larger sprites (max 28x28) [12.4 MB]
-- 100k images with 0, 1, or 2 (uniformly) sprites per image [11 MB]
+Binary RGB images with monochromatic dSprites on a black canvas. 
+Sprites can overlap (sum and clip).
+
+|  n images  | size  | max object<br>size | objects<br>per image | sprite colors | file size |
+| ---------- |:-----:|:------------------:|:--------------------:|:-------------:|:---------:|
+| 100k       | 64x64 | 18x18              | 1                    | 7             | 10.6 MB   |
+| 100k       | 64x64 | 28x28              | 1                    | 7             | 12.4 MB   |
+| 100k       | 64x64 | 18x18              | 0–2 (uniformly)      | 7             | 11.0 MB   |
 
 ![generated generated_dsprites](_readme_figs/generated_dsprites.png)
 
@@ -55,8 +58,11 @@ Sprites are 18x18 and 7 different colors, and they can overlap (sum and clip).
 Binary 64x64 single-channel images with MNIST digits on a black canvas.
 Digits are rescaled to 18x18 and binarized, and they can overlap (sum and clip).
 Only digits from the MNIST training set are used (60k).
-- 100k images with 1 digit per image [4.5 MB]
-- 100k images with 0, 1, or 2 (uniformly) digits per image [4.8 MB]
+
+|  n images  | size  | max object<br>size | objects<br>per image | file size |
+| ---------- |:-----:|:------------------:|:--------------------:|:---------:|
+| 100k       | 64x64 | 18x18              | 1                    |  4.5 MB   |
+| 100k       | 64x64 | 18x18              | 0–2 (uniformly)      |  4.8 MB   |
 
 ![generated mnist](_readme_figs/generated_mnist.png)
 
