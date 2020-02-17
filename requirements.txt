@@ -4,3 +4,4 @@ torchvision==0.5.0
 matplotlib==3.1.2
 scikit_image==0.16.2
 tqdm==4.41.1
+pillow==7.0.0

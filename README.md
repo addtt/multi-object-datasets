@@ -14,7 +14,7 @@ datasets in PyTorch are provided, with usage examples.
    or [generate a new one](#generating-a-new-dataset).
 2) Place the `.npz` dataset in 
    `/path/to/data/`. 
-3) `pip install git+https://github.com/addtt/multi-object-datasets.git`
+3) `pip install multiobject`
 4) Usage in PyTorch:
 	```python
 	from multiobject.pytorch import MultiObjectDataLoader, MultiObjectDataset
@@ -104,6 +104,7 @@ numpy==1.18.1
 matplotlib==3.1.2
 scikit_image==0.16.2
 tqdm==4.41.1
+pillow==7.0.0
 ```
 
 To run the examples or use the pytorch tools:
